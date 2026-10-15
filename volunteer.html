@@ -24,6 +24,7 @@
         <div class="dropdown">
           <a href="donate.html">Donate</a>
           <a href="volunteer.html">Volunteer</a>
+          <a href="volunteer-apply.html" class="dropdown__sub">Volunteer Application</a>
           <a href="volunteer-fellowship.html">AYM Youth Fellowship</a>
           <a href="chapter.html">Start an AYM Chapter</a>
         </div>
@@ -42,6 +43,7 @@
           <a href="focus-education.html">Education</a>
           <a href="focus-entrepreneurship.html">Entrepreneurship</a>
           <a href="focus-ecotourism.html">Ecotourism</a>
+          <a href="focus-ecotourism-forest-safari.html" class="dropdown__sub">Forest Safari</a>
           <a href="focus-health.html">Healthcare</a>
           <a href="focus-technology.html">Technology</a>
         </div>
@@ -67,27 +69,43 @@
     <span class="eyebrow eyebrow--brand" style="color:var(--brand)">Volunteer</span>
     <h1 class="hero__title">Drive Real Impact <em>Across Africa</em></h1>
     <p class="hero__sub">Lend your skills to empower local communities and shape sustainable youth-led futures.</p>
-    <div class="hero__actions"><a class="btn btn--accent" href="#roles">See Open Roles</a></div>
+    <div class="hero__actions"><a class="btn btn--accent" href="volunteer-apply.html">Apply to Volunteer</a><a class="btn btn--ghost" href="#roles">See Open Roles</a></div>
     
   </div>
 </section>
 
 <section class="section" id="roles">
   <div class="container">
-    <div class="section__head"><span class="eyebrow">Open Opportunities</span><h2>Find a role that fits you</h2></div>
-    <div class="grid grid-3"><article class="card"><div class="card__body"><div class="card__tag">Remote · Flexible</div>
-          <h3 class="card__title">Web Designer</h3>
-          <p class="card__text">Build and maintain pages for AYM's global programs.</p><a class="card__link" href="contact.html">View Role →</a></div></article><article class="card"><div class="card__body"><div class="card__tag">Remote · Flexible</div>
-          <h3 class="card__title">Digital Marketer</h3>
-          <p class="card__text">Run campaigns that grow awareness and donations.</p><a class="card__link" href="contact.html">View Role →</a></div></article><article class="card"><div class="card__body"><div class="card__tag">Remote · Flexible</div>
-          <h3 class="card__title">Content Writer</h3>
-          <p class="card__text">Tell the stories of the youth we serve.</p><a class="card__link" href="contact.html">View Role →</a></div></article><article class="card"><div class="card__body"><div class="card__tag">Remote · Part-time</div>
-          <h3 class="card__title">Data & Analytics</h3>
-          <p class="card__text">Measure impact and improve our programs.</p><a class="card__link" href="contact.html">View Role →</a></div></article><article class="card"><div class="card__body"><div class="card__tag">Remote · Flexible</div>
-          <h3 class="card__title">Researcher</h3>
-          <p class="card__text">Research policy, funding, and best practice.</p><a class="card__link" href="contact.html">View Role →</a></div></article><article class="card"><div class="card__body"><div class="card__tag">Remote · Part-time</div>
-          <h3 class="card__title">Project Manager</h3>
-          <p class="card__text">Coordinate volunteers and deliverables.</p><a class="card__link" href="contact.html">View Role →</a></div></article></div>
+    <div class="section__head"><span class="eyebrow">Open Opportunities</span><h2>Find a role that fits you</h2><p class="lead">Filter by location or time commitment &mdash; roles show the skills and eligibility you need before you apply.</p></div>
+    <div class="chips mb-2" data-filters>
+      <button class="chip is-active" data-filter="all">All roles</button>
+      <button class="chip" data-filter="remote">Remote</button>
+      <button class="chip" data-filter="on-site">On-site</button>
+      <button class="chip" data-filter="flexible">Flexible hours</button>
+      <button class="chip" data-filter="part-time">Part-time</button>
+    </div>
+    <div class="grid grid-3" data-filter-list><article class="card" data-role="remote flexible"><div class="card__body"><div class="card__tag">Remote</div><h3 class="card__title">Web Designer</h3><p class="card__text">Build and maintain pages for AYM's global programs.</p><dl class="spec"><div><dt>Commitment</dt><dd>Flexible · 4+ hrs/week</dd></div><div><dt>Skills</dt><dd>HTML/CSS, Figma, basic JavaScript</dd></div><div><dt>Eligibility</dt><dd>Beginner to intermediate</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article><article class="card" data-role="remote flexible"><div class="card__body"><div class="card__tag">Remote</div><h3 class="card__title">Digital Marketer</h3><p class="card__text">Run campaigns that grow awareness and donations.</p><dl class="spec"><div><dt>Commitment</dt><dd>Flexible · 6+ hrs/week</dd></div><div><dt>Skills</dt><dd>SEO, email, social advertising</dd></div><div><dt>Eligibility</dt><dd>Beginner to advanced</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article><article class="card" data-role="remote flexible"><div class="card__body"><div class="card__tag">Remote</div><h3 class="card__title">Content Writer</h3><p class="card__text">Tell the stories of the youth we serve.</p><dl class="spec"><div><dt>Commitment</dt><dd>Flexible · 4+ hrs/week</dd></div><div><dt>Skills</dt><dd>Writing, interviewing, editing</dd></div><div><dt>Eligibility</dt><dd>No experience required</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article><article class="card" data-role="remote part-time"><div class="card__body"><div class="card__tag">Remote</div><h3 class="card__title">Data & Analytics</h3><p class="card__text">Measure impact and improve our programs.</p><dl class="spec"><div><dt>Commitment</dt><dd>Part-time · 10+ hrs/week</dd></div><div><dt>Skills</dt><dd>Excel, SQL, dashboards</dd></div><div><dt>Eligibility</dt><dd>Intermediate</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article><article class="card" data-role="remote part-time"><div class="card__body"><div class="card__tag">Remote</div><h3 class="card__title">Researcher</h3><p class="card__text">Research policy, funding, and best practice.</p><dl class="spec"><div><dt>Commitment</dt><dd>Part-time · 8+ hrs/week</dd></div><div><dt>Skills</dt><dd>Research, synthesis, citations</dd></div><div><dt>Eligibility</dt><dd>Intermediate</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article><article class="card" data-role="remote on-site"><div class="card__body"><div class="card__tag">Remote / Sierra Leone</div><h3 class="card__title">Project Manager</h3><p class="card__text">Coordinate volunteers and deliverables.</p><dl class="spec"><div><dt>Commitment</dt><dd>Part-time · 10+ hrs/week</dd></div><div><dt>Skills</dt><dd>Planning, coordination, reporting</dd></div><div><dt>Eligibility</dt><dd>Experienced</dd></div></dl><a class="card__link" href="volunteer-apply.html">Apply for this role →</a></div></article></div>
+
+    <div class="grid grid-2 mt-3">
+      <div class="card card--flat"><div class="card__body">
+        <span class="eyebrow">Eligibility</span>
+        <h3 class="card__title">Am I eligible?</h3>
+        <ul class="ticks">
+          <li>You're 16 or older and can commit to your chosen hours.</li>
+          <li>You're comfortable working in English (written and spoken).</li>
+          <li>You can pass a basic background check.</li>
+          <li>Most roles need no prior professional experience.</li>
+        </ul>
+        <a class="card__link" href="contact.html">Not sure? Ask us →</a>
+      </div></div>
+      <div class="card card--flat"><div class="card__body">
+        <span class="eyebrow">Not ready to commit?</span>
+        <h3 class="card__title">Other ways to help</h3>
+        <p class="card__text">Give once or monthly, start a chapter in your city, or take on the one-year AYM Youth Fellowship for school leavers.</p>
+        <a class="card__link" href="donate.html">Donate →</a>
+        <a class="card__link" href="chapter.html">Start a Chapter →</a>
+      </div></div>
+    </div>
   </div>
 </section>
 
@@ -125,13 +143,22 @@
   </div>
 </section>
 
+<section class="section section--dark">
+  <div class="container center">
+    <span class="eyebrow" style="color:var(--brand)">Ready to start?</span>
+    <h2>The application takes about 10 minutes</h2>
+    <p class="lead" style="color:rgba(255,255,255,.85);max-width:60ch;margin:0 auto 1.4rem">Five short steps, saved as you go. Tell us your skills and availability and we'll match you with the team that needs you most.</p>
+    <a class="btn btn--accent btn--lg" href="volunteer-apply.html">Start Your Application</a>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
     <div class="section__head center">
       <span class="eyebrow">FAQs</span>
       <h2>Frequently asked questions</h2>
     </div>
-    <div class="faq"><details><summary>How do I apply?</summary><p>Complete the short application form and our team will guide you through the steps.</p></details><details><summary>Do I need experience?</summary><p>Roles range from entry-level to specialist. We match your skills with a need.</p></details><details><summary>How much time is required?</summary><p>It's flexible—from a few hours a week to full-time fellowship placements.</p></details><details><summary>Can I volunteer remotely?</summary><p>Yes. Many of our roles are fully remote, joining a global network of volunteers.</p></details><details><summary>What happens after I apply?</summary><p>Application → background check → role acceptance → start your first project.</p></details></div>
+    <div class="faq"><details><summary>What are the eligibility requirements?</summary><p>You must be 16 or older, able to work in English, and comfortable passing a basic background check. Most roles need no prior professional experience.</p></details><details><summary>How do I apply?</summary><p>Complete the <a href="volunteer-apply.html">five-step application form</a>. Your progress is saved as you go, so you can pause and return at any time.</p></details><details><summary>Do I need experience?</summary><p>Roles range from entry-level to specialist. We match your skills with a need.</p></details><details><summary>How much time is required?</summary><p>It's flexible—from a few hours a week to full-time fellowship placements.</p></details><details><summary>Can I volunteer remotely?</summary><p>Yes. Many of our roles are fully remote, joining a global network of volunteers.</p></details><details><summary>What happens after I apply?</summary><p>Application → background check → role acceptance → start your first project.</p></details></div>
   </div>
 </section>
 

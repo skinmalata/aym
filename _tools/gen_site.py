@@ -38,6 +38,7 @@ def head(title, desc, active=""):
         <div class="dropdown">
           <a href="donate.html">Donate</a>
           <a href="volunteer.html">Volunteer</a>
+          <a href="volunteer-apply.html" class="dropdown__sub">Volunteer Application</a>
           <a href="volunteer-fellowship.html">AYM Youth Fellowship</a>
           <a href="chapter.html">Start an AYM Chapter</a>
         </div>
@@ -56,6 +57,7 @@ def head(title, desc, active=""):
           <a href="focus-education.html">Education</a>
           <a href="focus-entrepreneurship.html">Entrepreneurship</a>
           <a href="focus-ecotourism.html">Ecotourism</a>
+          <a href="focus-ecotourism-forest-safari.html" class="dropdown__sub">Forest Safari</a>
           <a href="focus-health.html">Healthcare</a>
           <a href="focus-technology.html">Technology</a>
         </div>
@@ -289,7 +291,7 @@ LANDING = hero_page(
   "AYM is a youth-serving organization that encourages and works with young people to explore creative solutions to poverty. Participate in our mission and help us continue creating a better tomorrow for our youth.",
   "assets/img/landing-page01-3.png", "Home",
   actions='<a class="btn btn--accent btn--lg" href="donate.html">Donate Now</a>'
-          '<a class="btn btn--ghost btn--lg" href="https://youtube.com/@aymovement" target="_blank" rel="noopener">Watch Video</a>',
+          '<a class="btn btn--ghost btn--lg" href="https://www.youtube.com/c/Aym-incOrg" target="_blank" rel="noopener">Watch Video</a>',
   extra='<div class="stats">'
         '<div class="stat"><div class="stat__num">5000+</div><div class="stat__label">Lives Changed</div></div>'
         '<div class="stat"><div class="stat__num">50+</div><div class="stat__label">Enterprises Created</div></div>'
@@ -562,25 +564,80 @@ print("about/team/contact done")
 # ==========================================================================
 # PAGE: VOLUNTEER
 # ==========================================================================
+# (title, filter tags, location, commitment, skills, eligibility, description)
 VOL_ROLES = [
-  ("Web Designer", "Remote · Flexible", "Build and maintain pages for AYM's global programs."),
-  ("Digital Marketer", "Remote · Flexible", "Run campaigns that grow awareness and donations."),
-  ("Content Writer", "Remote · Flexible", "Tell the stories of the youth we serve."),
-  ("Data & Analytics", "Remote · Part-time", "Measure impact and improve our programs."),
-  ("Researcher", "Remote · Flexible", "Research policy, funding, and best practice."),
-  ("Project Manager", "Remote · Part-time", "Coordinate volunteers and deliverables."),
+  ("Web Designer", "remote flexible", "Remote", "Flexible · 4+ hrs/week",
+   "HTML/CSS, Figma, basic JavaScript", "Beginner to intermediate",
+   "Build and maintain pages for AYM's global programs."),
+  ("Digital Marketer", "remote flexible", "Remote", "Flexible · 6+ hrs/week",
+   "SEO, email, social advertising", "Beginner to advanced",
+   "Run campaigns that grow awareness and donations."),
+  ("Content Writer", "remote flexible", "Remote", "Flexible · 4+ hrs/week",
+   "Writing, interviewing, editing", "No experience required",
+   "Tell the stories of the youth we serve."),
+  ("Data & Analytics", "remote part-time", "Remote", "Part-time · 10+ hrs/week",
+   "Excel, SQL, dashboards", "Intermediate",
+   "Measure impact and improve our programs."),
+  ("Researcher", "remote part-time", "Remote", "Part-time · 8+ hrs/week",
+   "Research, synthesis, citations", "Intermediate",
+   "Research policy, funding, and best practice."),
+  ("Project Manager", "remote on-site", "Remote / Sierra Leone", "Part-time · 10+ hrs/week",
+   "Planning, coordination, reporting", "Experienced",
+   "Coordinate volunteers and deliverables."),
 ]
+role_cards = "".join(
+  f'<article class="card" data-role="{tags}"><div class="card__body">'
+  f'<div class="card__tag">{loc}</div>'
+  f'<h3 class="card__title">{title}</h3>'
+  f'<p class="card__text">{desc}</p>'
+  f'<dl class="spec">'
+  f'<div><dt>Commitment</dt><dd>{commit}</dd></div>'
+  f'<div><dt>Skills</dt><dd>{skills}</dd></div>'
+  f'<div><dt>Eligibility</dt><dd>{elig}</dd></div>'
+  f'</dl>'
+  f'<a class="card__link" href="volunteer-apply.html">Apply for this role →</a>'
+  f'</div></article>'
+  for title, tags, loc, commit, skills, elig, desc in VOL_ROLES
+)
 VOL = hero_page(
   "Volunteer",
   "Drive Real Impact <em>Across Africa</em>",
   "Lend your skills to empower local communities and shape sustainable youth-led futures.",
   "assets/img/volunteer-1.png", "Take Action / Volunteer",
-  actions='<a class="btn btn--accent" href="#roles">See Open Roles</a>'
+  actions='<a class="btn btn--accent" href="volunteer-apply.html">Apply to Volunteer</a><a class="btn btn--ghost" href="#roles">See Open Roles</a>'
 ) + f"""
 <section class="section" id="roles">
   <div class="container">
-    <div class="section__head"><span class="eyebrow">Open Opportunities</span><h2>Find a role that fits you</h2></div>
-    {cards_grid([{"title":t,"text":d,"tag":m,"cta":"View Role","href":"contact.html"} for t,m,d in VOL_ROLES], 3)}
+    <div class="section__head"><span class="eyebrow">Open Opportunities</span><h2>Find a role that fits you</h2><p class="lead">Filter by location or time commitment &mdash; roles show the skills and eligibility you need before you apply.</p></div>
+    <div class="chips mb-2" data-filters>
+      <button class="chip is-active" data-filter="all">All roles</button>
+      <button class="chip" data-filter="remote">Remote</button>
+      <button class="chip" data-filter="on-site">On-site</button>
+      <button class="chip" data-filter="flexible">Flexible hours</button>
+      <button class="chip" data-filter="part-time">Part-time</button>
+    </div>
+    <div class="grid grid-3" data-filter-list>{role_cards}</div>
+
+    <div class="grid grid-2 mt-3">
+      <div class="card card--flat"><div class="card__body">
+        <span class="eyebrow">Eligibility</span>
+        <h3 class="card__title">Am I eligible?</h3>
+        <ul class="ticks">
+          <li>You're 16 or older and can commit to your chosen hours.</li>
+          <li>You're comfortable working in English (written and spoken).</li>
+          <li>You can pass a basic background check.</li>
+          <li>Most roles need no prior professional experience.</li>
+        </ul>
+        <a class="card__link" href="contact.html">Not sure? Ask us →</a>
+      </div></div>
+      <div class="card card--flat"><div class="card__body">
+        <span class="eyebrow">Not ready to commit?</span>
+        <h3 class="card__title">Other ways to help</h3>
+        <p class="card__text">Give once or monthly, start a chapter in your city, or take on the one-year AYM Youth Fellowship for school leavers.</p>
+        <a class="card__link" href="donate.html">Donate →</a>
+        <a class="card__link" href="chapter.html">Start a Chapter →</a>
+      </div></div>
+    </div>
   </div>
 </section>
 
@@ -617,14 +674,188 @@ VOL = hero_page(
     </div>
   </div>
 </section>
+
+<section class="section section--dark">
+  <div class="container center">
+    <span class="eyebrow" style="color:var(--brand)">Ready to start?</span>
+    <h2>The application takes about 10 minutes</h2>
+    <p class="lead" style="color:rgba(255,255,255,.85);max-width:60ch;margin:0 auto 1.4rem">Five short steps, saved as you go. Tell us your skills and availability and we'll match you with the team that needs you most.</p>
+    <a class="btn btn--accent btn--lg" href="volunteer-apply.html">Start Your Application</a>
+  </div>
+</section>
 """ + faq([
-  ("How do I apply?", "Complete the short application form and our team will guide you through the steps."),
+  ("What are the eligibility requirements?", "You must be 16 or older, able to work in English, and comfortable passing a basic background check. Most roles need no prior professional experience."),
+  ("How do I apply?", 'Complete the <a href="volunteer-apply.html">five-step application form</a>. Your progress is saved as you go, so you can pause and return at any time.'),
   ("Do I need experience?", "Roles range from entry-level to specialist. We match your skills with a need."),
   ("How much time is required?", "It's flexible—from a few hours a week to full-time fellowship placements."),
   ("Can I volunteer remotely?", "Yes. Many of our roles are fully remote, joining a global network of volunteers."),
   ("What happens after I apply?", "Application → background check → role acceptance → start your first project."),
 ]) + CONTACT_CTA
 page("volunteer.html", "Volunteer", "Volunteer with AYM and drive real impact across Africa.", VOL, "volunteer")
+
+# ==========================================================================
+# PAGE: VOLUNTEER-APPLY  (robust, multi-step application form)
+# ==========================================================================
+_role_opts = "".join(f'<option>{t}</option>' for t, *_ in VOL_ROLES)
+_role_opts += '<option>Not sure yet &mdash; help me choose</option>'
+_country_opts = "".join(
+  f'<option>{c}</option>'
+  for c in ["Sierra Leone", "United States", "United Kingdom", "Kenya",
+            "Rwanda", "Uganda", "Nigeria", "South Africa", "Canada", "Other"]
+)
+_tz_opts = "".join(
+  f'<option>{t}</option>'
+  for t in ["UTC-08:00 Pacific", "UTC-05:00 Eastern", "UTC+00:00 GMT/London",
+            "UTC+01:00 Central Europe / West Africa", "UTC+02:00 Central/Southern Africa",
+            "UTC+03:00 East Africa", "Other"]
+)
+_exp_opts = "".join(f'<option>{e}</option>' for e in
+  ["No prior experience", "Beginner", "Intermediate", "Advanced", "Professional"])
+_comm_opts = "".join(
+  f'<label class="choice"><input type="radio" name="commitment" value="{v}" required> <span><strong>{v}</strong> &middot; {d}</span></label>'
+  for v, d in [("2&ndash;4 hrs/week", "a light but steady commitment"),
+               ("4&ndash;8 hrs/week", "a meaningful weekly contribution"),
+               ("8&ndash;16 hrs/week", "a significant role in a team"),
+               ("16+ hrs/week", "near full-time dedication")]
+)
+_skill_opts = "".join(
+  f'<label class="check-inline"><input type="checkbox" name="skills" value="{s}"> {s}</label>'
+  for s in ["Web / design", "Writing / editing", "Marketing / social", "Data / analytics",
+            "Project management", "Translation", "Teaching / tutoring", "Fundraising", "Other"]
+)
+_mode_opts = "".join(
+  f'<label class="choice"><input type="radio" name="mode" value="{m}" required> <span>{m}</span></label>'
+  for m in ["Remote", "On-site", "Either"]
+)
+_heard_opts = "".join(
+  f'<option>{h}</option>'
+  for h in ["Search engine", "Social media", "A friend or colleague", "An AYM event",
+            "Newsletter or email", "Other"]
+)
+
+APPLY = hero_page(
+  "Volunteer Application",
+  "Submit Your <em>Application</em>",
+  "Five short steps. Your progress is saved as you go, so you can pause and come back at any time.",
+  "assets/img/volunteer-0.png", "Take Action / Volunteer / Apply",
+  actions='<a class="btn btn--ghost btn--lg" href="#apply">Start Application</a>'
+) + f"""
+<section class="section" id="apply">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">Application</span><h2>Volunteer application form</h2>
+      <p class="lead">Fields marked <span class="req">*</span> are required. Nothing is submitted until the final step.</p>
+    </div>
+
+    <noscript>
+      <p class="cta-note">JavaScript is turned off, so all five steps are shown together below. Please complete every field marked <span class="req">*</span>, or email your application to <a href="mailto:info@aym-inc.org">info@aym-inc.org</a>.</p>
+      <style>
+        .apply__steps,.apply__progress{{display:none}}
+        .apply__panel[hidden]{{display:block}}
+        .apply__panel[data-step="5"]{{display:none}}
+        .apply__nav [data-apply-back],.apply__nav [data-apply-next]{{display:none}}
+        .apply__nav [data-apply-submit]{{display:inline-flex;margin-left:0}}
+      </style>
+    </noscript>
+
+    <form class="apply" data-apply novalidate>
+      <ol class="apply__steps" data-apply-steps aria-label="Application progress">
+        <li class="apply__step is-active" data-step-indicator="1"><span class="apply__dot">1</span><span class="apply__label">About you</span></li>
+        <li class="apply__step" data-step-indicator="2"><span class="apply__dot">2</span><span class="apply__label">Role &amp; skills</span></li>
+        <li class="apply__step" data-step-indicator="3"><span class="apply__dot">3</span><span class="apply__label">Availability</span></li>
+        <li class="apply__step" data-step-indicator="4"><span class="apply__dot">4</span><span class="apply__label">Motivation</span></li>
+        <li class="apply__step" data-step-indicator="5"><span class="apply__dot">5</span><span class="apply__label">Review</span></li>
+      </ol>
+      <div class="apply__progress"><span data-apply-bar style="width:20%"></span></div>
+
+      <div class="apply__panels">
+        <fieldset class="apply__panel is-active" data-step="1" aria-label="About you">
+          <legend class="apply__legend">Tell us about you</legend>
+          <div class="grid grid-2">
+            <label>First name <span class="req">*</span><input type="text" name="first" placeholder="First name" autocomplete="given-name" required></label>
+            <label>Last name <span class="req">*</span><input type="text" name="last" placeholder="Last name" autocomplete="family-name" required></label>
+          </div>
+          <div class="grid grid-2">
+            <label>Email <span class="req">*</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+            <label>Phone <span class="small muted">(optional)</span><input type="tel" name="phone" placeholder="+1 555 000 0000" autocomplete="tel"></label>
+          </div>
+          <div class="grid grid-2">
+            <label>Country <span class="req">*</span><select name="country" required><option value="">Select a country</option>{_country_opts}</select></label>
+            <label>City / region<input type="text" name="city" placeholder="City or region"></label>
+          </div>
+          <label>Date of birth <span class="req">*</span>
+            <input type="date" name="dob" required data-minage="16" data-error="You must be at least 16 to volunteer with AYM.">
+            <span class="small muted">You must be 16 or older to apply.</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="apply__panel" data-step="2" aria-label="Role and skills" hidden>
+          <legend class="apply__legend">Choose your role and skills</legend>
+          <label>Which role interests you most? <span class="req">*</span>
+            <select name="role" required><option value="">Select a role</option>{_role_opts}</select>
+          </label>
+          <fieldset class="choice-group"><legend>Your top skills <span class="small muted">(select any)</span></legend>{_skill_opts}</fieldset>
+          <div class="grid grid-2">
+            <label>Experience level<select name="experience"><option value="">Select</option>{_exp_opts}</select></label>
+            <label>Portfolio / LinkedIn / website <span class="small muted">(optional)</span><input type="url" name="portfolio" placeholder="https://"></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="apply__panel" data-step="3" aria-label="Availability" hidden>
+          <legend class="apply__legend">Your availability</legend>
+          <fieldset class="choice-group"><legend>How much time can you commit? <span class="req">*</span></legend>{_comm_opts}</fieldset>
+          <fieldset class="choice-group"><legend>How would you like to volunteer? <span class="req">*</span></legend>{_mode_opts}</fieldset>
+          <div class="grid grid-2">
+            <label>Preferred start date<input type="date" name="start"></label>
+            <label>Time zone<select name="timezone"><option value="">Select a time zone</option>{_tz_opts}</select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="apply__panel" data-step="4" aria-label="Motivation and background" hidden>
+          <legend class="apply__legend">Motivation &amp; background</legend>
+          <label>Why do you want to volunteer with AYM? <span class="req">*</span>
+            <textarea name="why" rows="5" placeholder="Tell us what motivates you (at least a few sentences)..." required data-minchars="40" data-error="Please write at least 40 characters so we can get to know you."></textarea>
+            <span class="small muted" data-count-for="why">0 characters</span>
+          </label>
+          <div class="grid grid-2">
+            <label>How did you hear about us?<select name="heard"><option value="">Select</option>{_heard_opts}</select></label>
+            <label>Reference name <span class="small muted">(optional)</span><input type="text" name="refname" placeholder="Name of a reference"></label>
+          </div>
+          <label>Reference email <span class="small muted">(optional)</span><input type="email" name="refemail" placeholder="reference@example.com"></label>
+          <label class="checkbox"><input type="checkbox" name="consent_bg" required> I understand a basic background check is part of onboarding. <span class="req">*</span></label>
+          <label class="checkbox"><input type="checkbox" name="consent_coc" required> I agree to AYM's code of conduct and privacy policy. <span class="req">*</span></label>
+        </fieldset>
+
+        <fieldset class="apply__panel" data-step="5" aria-label="Review and submit" hidden>
+          <legend class="apply__legend">Review your application</legend>
+          <p class="lead">Please check everything below. Use <strong>Back</strong> to make changes.</p>
+          <div class="review" data-review></div>
+          <label class="checkbox"><input type="checkbox" name="confirm" required> I confirm the information above is accurate and complete. <span class="req">*</span></label>
+        </fieldset>
+      </div>
+
+      <p class="apply__error" data-apply-error hidden role="alert"></p>
+
+      <div class="apply__nav">
+        <button type="button" class="btn btn--outline" data-apply-back hidden>&larr; Back</button>
+        <span class="small muted apply__saved" data-apply-saved hidden></span>
+        <button type="button" class="btn btn--accent" data-apply-next>Next step &rarr;</button>
+        <button type="submit" class="btn btn--accent" data-apply-submit hidden>Submit application</button>
+      </div>
+    </form>
+
+    <div class="success" data-apply-done hidden>
+      <div class="success__ico">&#10003;</div>
+      <h2>Application received</h2>
+      <p>Thank you, <strong data-apply-name>friend</strong>. We've recorded your interest and our volunteer team will be in touch.</p>
+      <p class="small muted">This is a demo build, so nothing was sent. In the live site your application would be delivered to AYM's volunteer team and a confirmation emailed to <strong data-apply-email></strong>. Your reference for this session is <code data-apply-ref></code>.</p>
+      <div class="flex"><a class="btn btn--brand" href="focus-ecotourism.html">Explore Our Work</a><a class="btn btn--outline" href="donate.html">Donate Instead</a></div>
+    </div>
+  </div>
+</section>
+"""
+page("volunteer-apply.html", "Volunteer Application",
+     "Apply to volunteer with the Twenty-First Century African Youth Movement using our five-step application form.",
+     APPLY, "volunteer")
 
 # ==========================================================================
 # PAGE: VOLUNTEER-FELLOWSHIP
@@ -634,7 +865,7 @@ FELLOW = hero_page(
   "Bridge the Gap Between School &amp; Success",
   "A 1-year immersive placement for school leavers to work alongside AYM leadership, build real-world experience, and launch their careers.",
   "assets/img/volunteer--special-0.png", "Take Action / Fellowship",
-  actions='<a class="btn btn--accent" href="contact.html">Apply for the Fellowship</a>'
+  actions='<a class="btn btn--accent" href="volunteer-apply.html">Apply for the Fellowship</a>'
 ) + f"""
 <section class="section">
   <div class="container split">
@@ -668,10 +899,10 @@ FELLOW = hero_page(
   <div class="container">
     <div class="section__head center"><span class="eyebrow">Program Tracks</span><h2>Choose your track</h2></div>
     {cards_grid([
-      {"title":"Tech & Digital Operations","text":"Support websites, data, and digital campaigns across the organisation.","cta":"Apply","href":"contact.html"},
-      {"title":"Agribusiness & Sustainability","text":"Work in the field on short-duration crops and livestock enterprises.","cta":"Apply","href":"contact.html"},
-      {"title":"Project Management & Admin","text":"Coordinate projects, budgets, and reporting.","cta":"Apply","href":"contact.html"},
-      {"title":"Ecotourism & Community Development","text":"Help develop sustainable travel and community programs.","cta":"Apply","href":"contact.html"},
+      {"title":"Tech & Digital Operations","text":"Support websites, data, and digital campaigns across the organisation.","cta":"Apply","href":"volunteer-apply.html"},
+      {"title":"Agribusiness & Sustainability","text":"Work in the field on short-duration crops and livestock enterprises.","cta":"Apply","href":"volunteer-apply.html"},
+      {"title":"Project Management & Admin","text":"Coordinate projects, budgets, and reporting.","cta":"Apply","href":"volunteer-apply.html"},
+      {"title":"Ecotourism & Community Development","text":"Help develop sustainable travel and community programs.","cta":"Apply","href":"volunteer-apply.html"},
     ], 4)}
   </div>
 </section>
@@ -713,19 +944,63 @@ tier_buttons = "".join(
   for t,d,v in TIERS
 ) + '<div class="tier__custom"><label>Other amount<input type="number" min="1" placeholder="Enter amount" data-tier-input></label></div>'
 
+# (id, short name used in the CTA, one-line subtitle, detail panel copy, href)
+PAY_METHODS = [
+  ("card", "Credit Card", "Visa, Mastercard, Discover &amp; Amex",
+   "Checkout runs through our secure payment processor over an encrypted connection. AYM never sees or stores your full card number.", "#"),
+  ("paypal", "PayPal", "Give with your PayPal balance or card",
+   "You'll be taken to PayPal to approve the gift, then returned to this page with a receipt.", "#"),
+  ("crypto", "Crypto", "Bitcoin, Ethereum &amp; USDC",
+   "Our crypto wallet address is being updated — the address that was live on the old site was a placeholder. Once confirmed it will appear here and in your receipt.", "#"),
+  ("cashapp", "Cash App", "$C21stAYM &middot; fast and fee-free in the US",
+   "Send your gift to <strong>$C21stAYM</strong> and include your email so we can issue a receipt.", "#"),
+  ("bank", "Network for Good", "Bank transfer, stock &amp; donor-advised funds",
+   "Network for Good and eBay for Nonprofits are accepted giving portals for ACH transfers, appreciated stock, and DAF distributions.", "#"),
+  ("match", "Employer Match", "Double your gift at no cost",
+   "Many employers match charitable gifts and volunteer hours. Search your employer's matching-gift system or ask your HR team, and name <strong>Twenty-First Century African Youth Movement</strong>.", "#"),
+]
+pay_buttons = "".join(
+  f'<button type="button" class="method{" is-active" if i==0 else ""}" data-method="{mid}" data-name="{nm}" data-href="{href}">'
+  f'<span class="method__name">{nm}</span><span class="method__desc">{sub}</span></button>'
+  for i, (mid, nm, sub, _detail, href) in enumerate(PAY_METHODS)
+)
+pay_panels = "".join(
+  f'<div class="method-panel" data-method-panel="{mid}"{" hidden" if i>0 else ""}>{detail}</div>'
+  for i, (mid, _nm, _sub, detail, _href) in enumerate(PAY_METHODS)
+)
+# Suggested amounts shown directly in the hero (kept in sync with the full list)
+hero_amounts = "".join(
+  f'<a class="tier tier--sm{" is-active" if v=="100" else ""}" href="#give" data-tier data-amount="{v}">'
+  f'{"$" + t if t != "monthly" else "Monthly"}</a>'
+  for t, _d, v in TIERS[:6]
+)
+
 DONATE = hero_page(
   "Fundraising",
   "Invest directly in <em>Africa's youth-led future</em>",
   "Equip young leaders with skills and resources to launch enterprises, create jobs, and build lasting economic independence across rural communities.",
   "assets/img/fundraising-2.png", "Take Action / Donate",
-  actions='<a class="btn btn--accent" href="#give">Donate Now</a>'
+  actions='<a class="btn btn--accent" href="#give">Donate Now</a>',
+  extra=(f'<div class="hero-widget">'
+         f'<span class="hero-widget__label">Suggested amounts</span>'
+         f'<div class="hero-widget__amounts">{hero_amounts}</div>'
+         f'<span class="hero-widget__hint">Pick an amount, then choose how you\u2019d like to pay.</span>'
+         f'</div>')
 ) + f"""
 <section class="section" id="give">
   <div class="container">
     <div class="section__head center"><span class="eyebrow">Make a gift</span><h2>Choose an amount</h2><p class="lead">100% of your gift is directed to AYM's approved programs and operations.</p></div>
     <div class="tiers">{tier_buttons}</div>
+
+    <div class="divider"></div>
+
+    <div class="section__head center"><span class="eyebrow">Payment method</span><h2>How would you like to pay?</h2><p class="lead">Pick a method below — the button at the bottom updates to match your choice.</p></div>
+    <div class="methods" data-methods>{pay_buttons}</div>
+    <div class="method-panels" data-method-panels>{pay_panels}</div>
+
     <div class="center mt-3">
-      <a class="btn btn--accent btn--lg" href="https://www.every.org/" target="_blank" rel="noopener">Donate Now</a>
+      <a class="btn btn--accent btn--lg" data-method-cta href="#">Donate $100 with Credit Card</a>
+      <p class="cta-note" data-cta-note hidden></p>
       <p class="small muted mt-1">Secure payments processed by verified third-party providers. AYM never stores your full card details.</p>
     </div>
   </div>
@@ -739,27 +1014,47 @@ DONATE = hero_page(
       <div class="feature"><h3>Youth Enterprises</h3><p class="muted">Seed support for small, youth-led ventures that generate income.</p></div>
       <div class="feature"><h3>Community Projects</h3><p class="muted">Education, agriculture, health, and tech initiatives in rural communities.</p></div>
     </div>
+
+    <div class="divider"></div>
+
+    <div class="section__head center"><span class="eyebrow">Areas we support</span><h2>Direct your gift to a focus area</h2><p class="lead">Choose a program area to see exactly what your money funds &mdash; or let AYM put it where it is needed most.</p></div>
+    <div class="chips chips--lg">
+      <a class="chip" href="focus-art.html">Art</a>
+      <a class="chip" href="focus-agriculture.html">Agriculture</a>
+      <a class="chip" href="focus-education.html">Education</a>
+      <a class="chip" href="focus-entrepreneurship.html">Entrepreneurship</a>
+      <a class="chip" href="focus-ecotourism.html">Ecotourism</a>
+      <a class="chip" href="focus-health.html">Healthcare</a>
+      <a class="chip" href="focus-technology.html">Technology</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">After you give</span><h2>What happens next</h2></div>
+    <div class="grid grid-3">
+      <div class="step"><div class="step__num">1</div><h3>Instant confirmation</h3><p class="muted">You\u2019ll see a confirmation on screen the moment your gift goes through.</p></div>
+      <div class="step"><div class="step__num">2</div><h3>Your receipt</h3><p class="muted">An emailed receipt with the amount, date, and AYM\u2019s EIN for your records.</p></div>
+      <div class="step"><div class="step__num">3</div><h3>Impact updates</h3><p class="muted">We follow up with news of the programs and youth your gift supports.</p></div>
+    </div>
+    <p class="small muted center mt-2">Gifts are processed by verified third-party payment providers. AYM does not store your card details.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container grid grid-2">
-    <div>
-      <span class="eyebrow">More ways to give</span>
-      <h2>Alternative ways to give</h2>
-      <ul class="ticks">
-        <li><strong>Cash App:</strong> $C21stAYM</li>
-        <li><strong>PayPal:</strong> donate directly through our PayPal link.</li>
-        <li><strong>Network for Good</strong> and <strong>eBay for Nonprofits</strong> giving portals.</li>
-        <li><strong>Employer matching:</strong> double your gift through your employer.</li>
-        <li><strong>Cryptocurrency:</strong> BTC address to be provided by AYM (the previous on-site address was a placeholder).</li>
-      </ul>
-    </div>
     <div class="card card--flat"><div class="card__body">
       <span class="eyebrow">Trust &amp; Transparency</span>
       <h3 class="card__title">Your gift is handled with care</h3>
       <p class="card__text">AYM is committed to ethical stewardship and transparent reporting. We provide clear information on our leadership, finances, and programs so donors can see exactly how their support drives youth employment and community development.</p>
       <p class="small muted">AYM is a 501(C)(3) Nonprofit Organization.<br>EIN: 39-1742519. Donations are tax-deductible to the extent allowed by law.</p>
+    </div></div>
+    <div class="card card--flat"><div class="card__body">
+      <span class="eyebrow">Need a hand?</span>
+      <h3 class="card__title">Giving by cheque, stock or wire?</h3>
+      <p class="card__text">For gifts by cheque, wire transfer, appreciated stock, planned giving, or anything the buttons above don't cover, our team will set it up with you and send a tax receipt.</p>
+      <a class="card__link" href="contact.html">Talk to our team →</a>
     </div></div>
   </div>
 </section>
@@ -889,16 +1184,28 @@ page("chapter.html", "Start an AYM Chapter", "Bring the African Youth Movement t
 # ==========================================================================
 PRODUCTS = [
   ("AYM Heritage Collegiate T-Shirt — Est. 2000","From $23.50","assets/img/store-1.png","Clothing"),
-  ("AYM Logo Cap — Est. 2000","View product","assets/img/store-0.png","Clothing"),
-  ("AYM Mission Mug","View product","assets/img/image-36-0.png","Mugs"),
-  ("AYM Spirit Tote Bag","View product","assets/img/image-38-0.png","Bags"),
-  ("AYM Pin Button Set","View product","","Accessories"),
-  ("AYM Sticker Pack","View product","","Accessories"),
-  ("AYM Laptop Sleeve","View product","","Accessories"),
-  ("AYM Water Bottle","View product","","Accessories"),
-  ("AYM Spiral Notebook","View product","","Stationery"),
-  ("AYM Tapestry","View product","","Home"),
+  ("AYM Logo Cap — Est. 2000","$20.00","assets/img/store-0.png","Clothing"),
+  ("AYM Mission Mug","$12.00","assets/img/image-36-0.png","Mugs"),
+  ("AYM Spirit Tote Bag","$18.00","assets/img/image-38-0.png","Bags"),
+  ("AYM Pin Button Set","$8.00","","Accessories"),
+  ("AYM Sticker Pack","$5.00","","Accessories"),
+  ("AYM Laptop Sleeve","$28.00","","Accessories"),
+  ("AYM Water Bottle","$16.00","","Accessories"),
+  ("AYM Spiral Notebook","$10.00","","Stationery"),
+  ("AYM Tapestry","$30.00","","Home"),
 ]
+cart_msg = ("Demo store \u2014 the shopping cart isn\u2019t connected yet. "
+            "Link this button to your eCommerce provider (WooCommerce, Shopify Buy Button or Snipcart) to take real orders.")
+product_cards = "".join(
+  f'<article class="card" data-role="{c.lower()}">'
+  + (f'<img class="card__img" src="{img}" alt="{t}" loading="lazy">' if img
+     else '<div class="card__img card__img--placeholder" aria-hidden="true"></div>')
+  + f'<div class="card__body"><div class="card__tag">{c}</div>'
+  f'<h3 class="card__title">{t}</h3><p class="price">{p}</p>'
+  f'<button type="button" class="btn btn--outline btn--block" data-demo-msg="{cart_msg}">Add to Cart</button>'
+  f'</div></article>'
+  for t, p, img, c in PRODUCTS
+)
 STORE = hero_page(
   "Impact Store",
   "Each Purchase <em>Gives Purpose</em>",
@@ -909,13 +1216,18 @@ STORE = hero_page(
 <section class="section" id="shop">
   <div class="container">
     <div class="section__head"><span class="eyebrow">Shop by category</span><h2>Clothing · Mugs · Bags · More</h2></div>
-    <div class="chips mb-2">
-      <button class="chip is-active">All</button><button class="chip">Clothing</button>
-      <button class="chip">Mugs</button><button class="chip">Bags</button>
-      <button class="chip">Accessories</button>
+    <div class="chips mb-2" data-filters>
+      <button class="chip is-active" data-filter="all">All</button>
+      <button class="chip" data-filter="clothing">Clothing</button>
+      <button class="chip" data-filter="mugs">Mugs</button>
+      <button class="chip" data-filter="bags">Bags</button>
+      <button class="chip" data-filter="accessories">Accessories</button>
+      <button class="chip" data-filter="stationery">Stationery</button>
+      <button class="chip" data-filter="home">Home</button>
     </div>
-    {cards_grid([{"title":t,"tag":c,"text":p,"cta":"Add to cart","href":"#","img":i or None} for t,p,i,c in PRODUCTS], 4)}
-    <div class="center mt-3"><button class="btn btn--outline">Load More</button></div>
+    <div class="grid grid-4" data-filter-list>{product_cards}</div>
+    <div class="center mt-3"><button class="btn btn--outline" data-demo-msg="All available items are already shown.">Load More</button></div>
+    <p class="cta-note" data-demo-note hidden></p>
     <p class="small muted center mt-1">Prices and stock are pending final confirmation. The previous site used "Ksh" pricing by mistake; US customers are shown USD here.</p>
   </div>
 </section>
@@ -972,7 +1284,7 @@ ART = focus_hero(
       <span class="eyebrow">Groundbreaking Impact</span>
       <h2>Representations of Violence</h2>
       <p class="lead">Between 1991 and 2001, Sierra Leone's civil war claimed an estimated 50,000 lives. Through 38 paintings and accompanying narrative, young artists gave form to a national trauma and opened a global conversation.</p>
-      <p><a class="btn btn--outline" href="projects.html">Learn More →</a></p>
+      <p><a class="btn btn--outline" href="events.html">See the Exhibition →</a></p>
     </div>
   </div>
 </section>
@@ -987,7 +1299,7 @@ ART = focus_hero(
         <span class="pill">Global Perception &amp; Dialogue</span>
         <span class="pill">Sierra Leone Masking Traditions</span>
       </div>
-      <p class="mt-2"><a class="btn btn--outline" href="projects.html">Learn More →</a></p>
+      <p class="mt-2"><a class="btn btn--outline" href="projects.html">View the Project →</a></p>
     </div>
     <div class="split__media"><img src="assets/img/art-1.png" alt="Imagining Africa"></div>
   </div>
@@ -1149,26 +1461,48 @@ HEALTH = focus_hero(
 page("focus-health.html", "Healthcare", "AYM addresses vital community healthcare needs through assessment, medical supplies and collaboration.", HEALTH)
 
 # ---- ECOTOURISM ----
+# (title, description, image, optional detail href)
 ACTIVITIES = [
-  ("Fishing","Enjoy traditional and sport fishing along Sierra Leone's rivers and coast."),
-  ("Waterfalls","Discover hidden waterfalls set in lush tropical forest."),
-  ("Safaris","Encounter wildlife on guided safaris through protected reserves."),
-  ("Sailing","Sail calm coastal waters on community-run boat trips."),
-  ("Beaches","Relax on pristine, uncrowded Atlantic beaches."),
-  ("Culture","Experience local music, dance and masking traditions."),
-  ("Culinary","Taste authentic Sierra Leonean cuisine prepared by local hosts."),
-  ("Excursions","Join guided excursions to historic and natural landmarks."),
+  ("Fishing", "Enjoy traditional and sport fishing along Sierra Leone's rivers and coast.",
+   "assets/img/ecotourism-1.png", None),
+  ("Waterfalls", "Discover hidden waterfalls set in lush tropical forest.",
+   "assets/img/ecotourism-2.png", None),
+  ("Forest Safari", "Journey into the wild to see the forests of Sierra Leone and their wildlife.",
+   "assets/img/ecotourism-3.png", "focus-ecotourism-forest-safari.html"),
+  ("Sailing", "Sail calm coastal waters on community-run boat trips.",
+   "assets/img/ecotourism-4.png", None),
+  ("Beaches", "Relax on pristine, uncrowded Atlantic beaches \u2014 including Moselle Beach.",
+   "assets/img/ecotourism-5.png", None),
+  ("Culture", "Experience local music, dance and masking traditions.",
+   "assets/img/ecotourism-1.png", None),
+  ("Culinary", "Taste authentic Sierra Leonean cuisine prepared by local hosts.",
+   "assets/img/ecotourism-4.png", None),
+  ("Excursions", "Join guided excursions to historic and natural landmarks.",
+   "assets/img/ecotourism-3.png", None),
 ]
+eco_cards = "".join(
+  f'<article class="card">'
+  f'<img class="card__img" src="{img}" alt="{t}" loading="lazy">'
+  f'<div class="card__body"><div class="card__tag">Activity</div>'
+  f'<h3 class="card__title">{t}</h3><p class="card__text">{d}</p>'
+  + (f'<a class="card__link" href="{href}">Learn More →</a>' if href else "")
+  + f'</div></article>'
+  for t, d, img, href in ACTIVITIES
+)
 ECO = focus_hero(
   "Eco-Tourism &amp; <em>Sustainable Travel</em>",
-  "Experience the natural beauty of Sierra Leone while supporting local community development and conservation.",
+  "Experience the natural beauty of Sierra Leone while directly supporting local community development, youth employment, and environmental conservation.",
   "assets/img/ecotourism-0.png",
   '<a class="btn btn--accent" href="#packages">Book Your Experience</a>'
 ) + f"""
 <section class="section">
   <div class="container">
     <div class="section__head center"><span class="eyebrow">Endless Activities</span><h2>Things to do</h2></div>
-    {cards_grid([{"title":t,"text":d} for t,d in ACTIVITIES], 4)}
+    <div class="grid grid-4">{eco_cards}</div>
+    <div class="center mt-3">
+      <p class="lead">Want to know about these adventures?</p>
+      <a class="btn btn--brand" href="contact.html">Contact Us →</a>
+    </div>
   </div>
 </section>
 
@@ -1185,11 +1519,13 @@ ECO = focus_hero(
 
 <section class="section" id="packages">
   <div class="container">
-    <div class="section__head center"><span class="eyebrow">Transparent Pricing</span><h2>Package Options</h2></div>
+    <div class="section__head center"><span class="eyebrow">Transparent Pricing</span><h2>Package Options</h2>
+      <p class="lead">All daily activities include food and drinks (featuring a traditional African dish and an optional traditional Poyo beverage). Knowledgeable local guides organize, manage, and serve you throughout the tour. <strong>Note:</strong> transportation to and from Moselle Beach is the visitor's responsibility.</p>
+    </div>
     <div class="grid grid-3">
-      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 1</div><h3 class="card__title">Solo &amp; Pairs</h3><p class="price">$50 <span class="muted">/ person</span></p><p class="card__text">Perfect for individual travelers and couples.</p></div></div>
-      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 2</div><h3 class="card__title">Small Groups (3+)</h3><p class="price">$45 <span class="muted">/ person</span></p><p class="card__text">Great value for friends and families travelling together.</p></div></div>
-      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 3</div><h3 class="card__title">Custom &amp; Large Groups</h3><p class="price">Contact us</p><p class="card__text">Tailored itineraries for large groups and organizations.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 1</div><h3 class="card__title">Solo &amp; Pairs</h3><p class="price">$50.00 <span class="muted">/ person</span></p><p class="small muted">1 to 2 guests</p><p class="card__text">Daily individual guided tour to Moselle Beach.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 2</div><h3 class="card__title">Small Groups (3+)</h3><p class="price">$45.00 <span class="muted">/ person</span></p><p class="small muted">3 or more guests</p><p class="card__text">Daily group tour discount to Moselle Beach.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Tier 3</div><h3 class="card__title">Custom &amp; Large Groups</h3><p class="price">Contact for pricing</p><p class="small muted">Custom packages</p><p class="card__text">Customized camping programs, larger group itineraries, and special excursions (e.g. Bonthe Island).</p></div></div>
     </div>
     <div class="center mt-3">
       <a class="btn btn--accent" href="mailto:infosl@aym-inc.org">Inquire About Packages</a>
@@ -1197,8 +1533,89 @@ ECO = focus_hero(
     </div>
   </div>
 </section>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">No hidden costs</span><h2>Plan your eco-trip today</h2><p class="lead">We are committed to complete pricing transparency with zero hidden charges beyond the listed costs.</p></div>
+    <div class="grid grid-3">
+      <div class="feature"><h3>Guides included</h3><p class="muted">Local guides organize and serve every day of your tour.</p></div>
+      <div class="feature"><h3>Meals included</h3><p class="muted">Food and drinks are covered, including an optional traditional Poyo.</p></div>
+      <div class="feature"><h3>Nothing added later</h3><p class="muted">No surprise charges beyond the published tier price.</p></div>
+    </div>
+  </div>
+</section>
 """ + CONTACT_CTA
 page("focus-ecotourism.html", "Ecotourism", "Experience Sierra Leone's natural beauty with AYM eco-tourism while supporting local communities.", ECO)
+
+# ---- ECOTOURISM > FOREST SAFARI (inner sub-page from the Figma menu) ----
+SAFARI = hero_page(
+  "Eco-Tourism / Forest Safari",
+  "A Journey Into <em>the Wild</em>",
+  "Walk Sierra Leone's protected forests with a local guide and see the wildlife, rivers and canopy that make the country's interior so extraordinary.",
+  "assets/img/ecotourism-3.png", "Focus Areas / Ecotourism / Forest Safari",
+  actions='<a class="btn btn--accent" href="focus-ecotourism.html#packages">Book Your Experience</a> '
+          '<a class="btn btn--ghost btn--lg" href="contact.html">Ask a Question</a>'
+) + f"""
+<section class="section">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">The Experience</span><h2>What you'll do in the forest</h2></div>
+    <div class="grid grid-3">
+      <div class="feature"><h3>Guided forest walk</h3><p class="muted">A knowledgeable local guide leads you along established trails through primary and secondary forest.</p></div>
+      <div class="feature"><h3>Wildlife &amp; birdwatching</h3><p class="muted">Spot monkeys, forest birds and plant life that exist nowhere else on earth.</p></div>
+      <div class="feature"><h3>Rivers &amp; clearings</h3><p class="muted">Rest at streams and forest clearings, with time for photos and questions along the way.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="container split">
+    <div class="split__media"><img src="assets/img/ecotourism-1.png" alt="Forest safari"></div>
+    <div>
+      <span class="eyebrow">Good to know</span>
+      <h2>What's included</h2>
+      <ul class="ticks">
+        <li>A professional local guide for the full walk.</li>
+        <li>Food and drinks, including a traditional African dish.</li>
+        <li>Booking, planning and on-the-ground support.</li>
+      </ul>
+      <ul class="ticks mt-2">
+        <li><strong>Not included:</strong> transport to and from the trailhead.</li>
+        <li>Wear closed shoes and bring water and sun protection.</li>
+        <li>Tours run in small groups so the forest stays undisturbed.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">Along the way</span><h2>Scenes from the trail</h2></div>
+    <div class="gallery">
+      <img class="gallery__img" src="assets/img/ecotourism-3.png" alt="Forest canopy">
+      <img class="gallery__img" src="assets/img/ecotourism-5.png" alt="Forest trail">
+      <img class="gallery__img" src="assets/img/ecotourism-2.png" alt="Waterfall in the forest">
+      <img class="gallery__img" src="assets/img/ecotourism-4.png" alt="River crossing">
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="section__head center"><span class="eyebrow">Plan your visit</span><h2>Forest Safari at a glance</h2></div>
+    <div class="grid grid-3">
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Group size</div><h3 class="card__title">Small groups</h3><p class="card__text">Solo travellers, pairs and groups are all welcome.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Duration</div><h3 class="card__title">Half or full day</h3><p class="card__text">Choose a shorter loop or a full day deeper into the forest.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><div class="card__tag">Price</div><h3 class="card__title">From $45.00</h3><p class="card__text">Group rates apply. See full package tiers for current pricing.</p></div></div>
+    </div>
+    <div class="center mt-3">
+      <a class="btn btn--accent" href="focus-ecotourism.html#packages">See Package Pricing</a>
+      <a class="btn btn--brand" href="mailto:infosl@aym-inc.org">Email to Book</a>
+    </div>
+  </div>
+</section>
+""" + CONTACT_CTA
+page("focus-ecotourism-forest-safari.html", "Forest Safari",
+     "A guided journey into Sierra Leone's forests with AYM ecotourism \u2014 wildlife, rivers and local guides.", SAFARI)
 
 # ---- TECHNOLOGY ----
 TECH = focus_hero(
